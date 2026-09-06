@@ -6,7 +6,8 @@ __pycache__/
 *.pyc
 target/
 *.class
-
+project.private.config.json
+project.config.json
 # 构建产物（由源码生成，无需存档）
 dist/
 build/
