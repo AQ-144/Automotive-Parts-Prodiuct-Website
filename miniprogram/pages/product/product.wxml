@@ -1,0 +1,85 @@
+<view class="page" wx:if="{{product}}">
+
+  <!-- 顶部主图 swiper -->
+  <swiper class="gallery" indicator-dots indicator-color="rgba(255,255,255,0.5)"
+          indicator-active-color="#2B99FF" circular wx:if="{{images.length > 1}}">
+    <swiper-item wx:for="{{images}}" wx:key="*this">
+      <image class="gallery-img" src="{{item}}" mode="aspectFill"
+             data-src="{{item}}" bindtap="previewImage"></image>
+    </swiper-item>
+  </swiper>
+  <!-- 单图时不使用 swiper -->
+  <view class="gallery" wx:else>
+    <image class="gallery-img" src="{{images[0]}}" mode="aspectFill"
+           data-src="{{images[0]}}" bindtap="previewImage"></image>
+  </view>
+
+  <!-- 价格区 -->
+  <view class="price-card">
+    <view class="price-row">
+      <view class="now-price"><text class="sign">¥</text>{{fmtPrice(product.price)}}</view>
+      <view class="status-tag" style="background:{{statusColor}}1A;color:{{statusColor}}">{{statusText}}</view>
+    </view>
+    <view class="origin-row" wx:if="{{product.original_price}}">
+      <text class="origin-price">¥{{fmtPrice(product.original_price)}}</text>
+      <text class="origin-label">原价</text>
+    </view>
+    <view class="meta-row">
+      <text class="meta-item">库存 {{product.stock}}</text>
+      <text class="meta-item">已售 {{product.sales}}</text>
+      <text class="meta-item">品牌 {{product.brand}}</text>
+    </view>
+  </view>
+
+  <!-- 名称 + OEM 气泡 -->
+  <view class="name-card">
+    <view class="product-name">{{product.name}}</view>
+    <view class="oem-bubble" wx:if="{{product.oem_code}}">OEM {{product.oem_code}}</view>
+  </view>
+
+  <!-- 规格参数 -->
+  <view class="block" wx:if="{{specsArray.length > 0}}">
+    <view class="block-title">📋 规格参数</view>
+    <view class="spec-table">
+      <view class="spec-row" wx:for="{{specsArray}}" wx:key="key">
+        <view class="spec-key">{{item.key}}</view>
+        <view class="spec-value">{{item.value}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 适配车型 -->
+  <view class="block" wx:if="{{fitModels.length > 0}}">
+    <view class="block-title">🚗 适配车型</view>
+    <view class="fit-wrap">
+      <view class="fit-pill" wx:for="{{fitModels}}" wx:key="id">
+        {{item.brand}} {{item.model}} {{item.year}} {{item.displacement}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品描述 -->
+  <view class="block">
+    <view class="block-title">📄 商品描述</view>
+    <view class="desc">{{product.description || '暂无描述'}}</view>
+  </view>
+
+  <!-- 底部预留间隔 -->
+  <view class="footer-space"></view>
+
+  <!-- 底部固定操作栏 -->
+  <view class="action-bar">
+    <view class="action-btn outline {{disabled ? 'no-border' : ''}}" bindtap="addInquiry">
+      <text class="action-icon">📝</text>加入询价单
+    </view>
+    <view class="action-btn solid {{disabled ? 'disabled' : ''}}" bindtap="inquiryNow">
+      <text class="action-icon">💬</text>立即询价
+    </view>
+  </view>
+
+</view>
+
+<!-- 加载中/空态 -->
+<view class="loading-box" wx:if="{{!product}}">
+  <text class="loading-text">{{loading ? '加载中...' : '未找到该商品'}}</text>
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "搜索配件",
+  "navigationBarBackgroundColor": "#2B99FF",
+  "navigationBarTextStyle": "white",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false
+}

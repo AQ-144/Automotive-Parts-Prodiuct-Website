@@ -1,0 +1,138 @@
+<!-- 新增/编辑配件 -->
+<view class="edit-page">
+  <!-- 基础信息 -->
+  <view class="section">
+    <view class="section-title">基本信息</view>
+
+    <view class="field">
+      <text class="label">名称 <text class="req">*</text></text>
+      <input class="input" placeholder="配件名称" placeholder-class="ph" value="{{form.name}}" data-key="name" bindinput="onInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">分类 <text class="req">*</text></text>
+      <view class="picker" bindtap="onCategory">
+        <text class="{{form.category ? '' : 'ph-text'}}">{{form.category ? categoryName : '请选择分类'}}</text>
+        <text class="arrow">▾</text>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">品牌</text>
+      <input class="input" placeholder="如：博世 / 曼牌" placeholder-class="ph" value="{{form.brand}}" data-key="brand" bindinput="onInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">OEM编号</text>
+      <input class="input" placeholder="原厂编号" placeholder-class="ph" value="{{form.oem_code}}" data-key="oem_code" bindinput="onInput" />
+    </view>
+  </view>
+
+  <!-- 价格与库存 -->
+  <view class="section">
+    <view class="section-title">价格与库存</view>
+
+    <view class="field">
+      <text class="label">售价(元) <text class="req">*</text></text>
+      <input class="input" type="digit" placeholder="如：199.00" placeholder-class="ph" value="{{form.price}}" data-key="price" bindinput="onInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">原价(元)</text>
+      <input class="input" type="digit" placeholder="划线价" placeholder-class="ph" value="{{form.original_price}}" data-key="original_price" bindinput="onInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">库存</text>
+      <input class="input" type="number" placeholder="如：100" placeholder-class="ph" value="{{form.stock}}" data-key="stock" bindinput="onInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">状态</text>
+      <view class="radio-row">
+        <view class="radio {{form.status === 'on_sale' ? 'checked' : ''}}" data-status="on_sale" bindtap="onStatus">
+          <text>◉</text>在售
+        </view>
+        <view class="radio {{form.status === 'off_shelf' ? 'checked' : ''}}" data-status="off_shelf" bindtap="onStatus">
+          <text>◉</text>下架
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图片 -->
+  <view class="section">
+    <view class="section-title">图片</view>
+
+    <!-- 主图上传 -->
+    <view class="field">
+      <text class="label">主图</text>
+      <view class="main-image-box">
+        <image wx:if="{{form.main_image}}" class="main-image" src="{{form.main_image}}" mode="aspectFill" />
+        <view wx:else class="main-image main-empty">未设置主图</view>
+        <button class="main-upload-btn" bindtap="onUploadMain" loading="{{uploading}}" disabled="{{uploading}}">上传主图</button>
+      </view>
+      <view class="muted">点击上传本地图片作为主图（仅支持 JPG/PNG/GIF/WebP，≤5MB）</view>
+    </view>
+
+    <!-- 展示图：上传 + 多图网格 -->
+    <view class="field">
+      <text class="label">展示图（多张）</text>
+      <view class="img-grid">
+        <view class="img-cell" wx:for="{{imageList}}" wx:key="*this">
+          <image class="img-preview" src="{{item}}" mode="aspectFill" data-index="{{index}}" bindtap="onSetMain" />
+          <view class="img-remove" data-index="{{index}}" catchtap="onRemoveImage">✕</view>
+          <view class="img-main-tag" wx:if="{{item === form.main_image}}">主图</view>
+        </view>
+        <view class="img-add" bindtap="onAddImages">
+          <text class="img-add-plus">＋</text>
+          <text class="img-add-text">添加图片</text>
+        </view>
+      </view>
+      <view class="muted">点击图片可设为主图；✕ 删除；最多一次上传9张</view>
+    </view>
+  </view>
+
+  <!-- 规格 -->
+  <view class="section">
+    <view class="section-title-row">
+      <text class="section-title">规格参数</text>
+      <text class="add-btn" bindtap="addSpec">＋ 添加行</text>
+    </view>
+    <view class="spec-row" wx:for="{{specs}}" wx:key="index">
+      <input class="spec-input" placeholder="key 如：材质" placeholder-class="ph" value="{{item.key}}" data-index="{{index}}" data-type="key" bindinput="onSpecInput" />
+      <text class="sep">:</text>
+      <input class="spec-input" placeholder="value 如：铁" placeholder-class="ph" value="{{item.value}}" data-index="{{index}}" data-type="value" bindinput="onSpecInput" />
+      <text class="del" data-index="{{index}}" bindtap="delSpec">✕</text>
+    </view>
+    <view class="spec-empty" wx:if="{{specs.length === 0}}">暂无规格，点击右上角添加</view>
+  </view>
+
+  <!-- 适配车型 -->
+  <view class="section" wx:if="{{vehicleGroups.length > 0}}">
+    <view class="section-title">适配车型</view>
+    <checkbox-group bindchange="onFitChange">
+      <view class="vehicle-group" wx:for="{{vehicleGroups}}" wx:key="brand">
+        <view class="vg-brand">{{item.brand}}</view>
+        <view class="vg-models">
+          <label class="model-check" wx:for="{{item.models}}" wx:for-item="m" wx:key="id">
+            <checkbox value="{{m.id}}" checked="{{m.checked}}" style="transform:scale(0.7);" />
+            <text>{{m.model}} {{m.year}}</text>
+          </label>
+        </view>
+      </view>
+    </checkbox-group>
+  </view>
+
+  <!-- 描述 -->
+  <view class="section">
+    <view class="section-title">商品描述</view>
+    <textarea class="textarea desc" placeholder="配件详细介绍" placeholder-class="ph" value="{{form.description}}" data-key="description" bindinput="onInput" />
+  </view>
+
+  <!-- 保存按钮 -->
+  <button class="save-btn" bindtap="onSave" loading="{{saving}}" disabled="{{saving}}">
+    {{isEdit ? '保存修改' : '确认添加'}}
+  </button>
+  <view class="bottom-space"></view>
+</view>

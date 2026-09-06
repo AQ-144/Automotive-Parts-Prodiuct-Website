@@ -1,0 +1,88 @@
+<view class="page">
+
+  <!-- 顶部搜索框 (圆角胶囊) -->
+  <view class="search-header">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input"
+             value="{{keyword}}"
+             bindinput="onInput"
+             bindconfirm="onSearch"
+             confirm-type="search"
+             placeholder="搜索配件 / 品牌 / OEM编号"
+             placeholder-class="search-ph"
+             autofocus="{{false}}"
+             focus="{{autoFocus}}"/>
+      <text class="search-clear" wx:if="{{keyword}}" bindtap="clearKeyword">✕</text>
+    </view>
+    <view class="search-btn" hover-class="btn-hover" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 未搜索 状态：展示热搜 / 搜索历史 / 分类快捷入口 -->
+  <block wx:if="{{!searched}}">
+    <!-- 搜索历史 -->
+    <view class="sec" wx:if="{{history.length > 0}}">
+      <view class="sec-header">
+        <text class="sec-title">搜索历史</text>
+        <text class="sec-clear" hover-class="btn-hover" bindtap="clearHistory">🗑 清空</text>
+      </view>
+      <view class="tag-wrap">
+        <view class="tag" wx:for="{{history}}" wx:key="*this" data-kw="{{item}}" bindtap="tapHistory">{{item}}</view>
+      </view>
+    </view>
+
+    <!-- 热门搜索 -->
+    <view class="sec">
+      <view class="sec-header">
+        <text class="sec-title">🔥 热门搜索</text>
+      </view>
+      <view class="tag-wrap">
+        <view class="tag tag-hot" wx:for="{{hotWords}}" wx:key="*this" data-kw="{{item}}" bindtap="tapHistory">{{item}}</view>
+      </view>
+    </view>
+
+    <!-- 分类快捷入口 -->
+    <view class="sec">
+      <view class="sec-header">
+        <text class="sec-title">分类逛逛</text>
+      </view>
+      <view class="cat-grid">
+        <view class="cat-card" wx:for="{{categories}}" wx:key="key"
+              data-key="{{item.key}}" data-name="{{item.name}}" hover-class="btn-hover" bindtap="goCategory">
+          <view class="cat-emoji" style="background:{{item.color}}1A">{{item.emoji}} {{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 已搜索 状态：结果列表 -->
+  <block wx:else>
+    <!-- 搜索关键词提示 -->
+    <view class="result-hint" wx:if="{{products.length > 0}}">
+      <text>“{{keyword}}” 找到 {{total}} 个配件</text>
+    </view>
+
+    <!-- 两列卡片网格（若有结果） -->
+    <view class="goods-grid" wx:if="{{products.length > 0}}">
+      <view class="goods-card" wx:for="{{products}}" wx:key="id"
+            data-id="{{item.id}}" hover-class="card-hover" bindtap="goProduct">
+        <view class="img-wrap">
+          <image class="goods-img" src="{{item.main_image}}" mode="aspectFill" lazy-load="true"></image>
+          <!-- 分类角标 -->
+          <view class="cat-badge" style="background:{{item.catColor}}">{{item.categoryName}}</view>
+        </view>
+        <view class="goods-name">{{item.name}}</view>
+        <view class="goods-price"><text class="sign">¥</text>{{fmtPrice(item.price)}}</view>
+        <view class="goods-oem">OEM {{item.oem_code}}</view>
+      </view>
+    </view>
+
+    <!-- 空结果态 -->
+    <view class="empty" wx:if="{{products.length === 0}}">
+      <text class="empty-icon">🔍</text>
+      <text class="empty-text">未找到相关配件</text>
+      <text class="empty-sub">换个关键词试试吧</text>
+    </view>
+  </block>
+
+</view>

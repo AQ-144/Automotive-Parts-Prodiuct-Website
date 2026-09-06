@@ -1,0 +1,32 @@
+# 依赖目录（必须忽略，体积巨大）
+node_modules/
+venv/
+env/
+__pycache__/
+*.pyc
+target/
+*.class
+
+# 构建产物（由源码生成，无需存档）
+dist/
+build/
+out/
+*.log
+*.tmp
+
+# 环境变量与密钥（安全红线，绝对不能提交）
+.env
+.env.local
+.secrets
+*.pem
+
+# IDE 和操作系统配置（因人而异，无需同步）
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# 缓存文件
+.cache/
+*.tsbuildinfo

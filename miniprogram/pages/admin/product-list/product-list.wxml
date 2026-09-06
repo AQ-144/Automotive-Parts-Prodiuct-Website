@@ -1,0 +1,93 @@
+<!-- 配件管理 -->
+<view class="list-page">
+  <!-- 顶部搜索 + 新增 -->
+  <view class="top-bar">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索名称 / OEM编号"
+        placeholder-class="ph"
+        value="{{keyword}}"
+        bindinput="onKeyword"
+        bindconfirm="onSearch"
+        confirm-type="search"
+      />
+      <text class="search-btn" bindtap="onSearch">搜索</text>
+    </view>
+    <view class="add-btn" bindtap="goAdd">＋ 新增配件</view>
+  </view>
+
+  <!-- 分类筛选 chips -->
+  <scroll-view class="chips" scroll-x>
+    <view
+      wx:for="{{catChips}}"
+      wx:key="key"
+      class="chip {{curCategory === item.key ? 'active' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="onCat"
+    >{{item.name}}</view>
+  </scroll-view>
+
+  <!-- 状态筛选 chips -->
+  <view class="chips boxed">
+    <view
+      wx:for="{{statusChips}}"
+      wx:key="key"
+      class="chip {{curStatus === item.key ? 'active' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="onStatus"
+    >{{item.name}}</view>
+  </view>
+
+  <!-- 全选操作条 -->
+  <view class="op-bar">
+    <view class="check-all" bindtap="toggleCheckAll">
+      <view class="checkbox {{checkAll ? 'checked' : ''}}"></view>
+      <text>全选</text>
+    </view>
+    <view class="batch-btn on" bindtap="batchChange" data-status="on_sale">批量上架</view>
+    <view class="batch-btn off" bindtap="batchChange" data-status="off_shelf">批量下架</view>
+  </view>
+
+  <!-- 配件列表 -->
+  <view class="list">
+    <view class="card" wx:for="{{products}}" wx:key="id">
+      <view class="checkbox {{item.checked ? 'checked' : ''}}" data-id="{{item.id}}" bindtap="toggleOne"></view>
+      <image class="thumb" src="{{item.main_image || 'https://picsum.photos/120/120?random=' + item.id}}" mode="aspectFill" />
+      <view class="info">
+        <view class="name">{{item.name}}</view>
+        <view class="row muted">{{CATEGORY_MAP[item.category]}} · {{item.brand || '未填品牌'}}</view>
+        <view class="row price-row">
+          <text class="price-tag">¥{{fmtPrice(item.price)}}</text>
+          <text wx:if="{{item.original_price}}" class="ot">¥{{fmtPrice(item.original_price)}}</text>
+        </view>
+        <view class="row muted">
+          库存 {{item.stock}} · OEM {{item.oem_code || '-'}}
+        </view>
+        <view class="row">
+          <text class="status-tag" style="color:{{STATUS_MAP[item.status].color}}">{{STATUS_MAP[item.status].text}}</text>
+        </view>
+        <view class="ops">
+          <view class="op" data-id="{{item.id}}" bindtap="goEdit">编辑</view>
+          <view class="op" data-id="{{item.id}}" data-status="{{item.status === 'on_sale' ? 'off_shelf' : 'on_sale'}}" bindtap="toggleStatus">
+            {{item.status === 'on_sale' ? '下架' : '上架'}}
+          </view>
+          <view class="op danger" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="delOne">删除</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载/尾部状态 -->
+    <view class="list-footer" wx:if="{{!loading}}">
+      <text wx:if="{{loadingMore}}">加载中...</text>
+      <text wx:elif="{{!hasMore}}">已全部加载</text>
+    </view>
+  </view>
+
+  <!-- 空态 -->
+  <view class="empty" wx:if="{{!loading && products.length === 0}}">
+    <text class="empty-icon">📦</text>
+    <text class="empty-text">暂无配件数据</text>
+  </view>
+</view>

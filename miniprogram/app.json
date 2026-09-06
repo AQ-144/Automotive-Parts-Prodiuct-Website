@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/category/category",
+    "pages/product/product",
+    "pages/search/search",
+    "pages/cart/cart",
+    "pages/admin/login",
+    "pages/admin/dashboard",
+    "pages/admin/product-list",
+    "pages/admin/product-edit"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2B99FF",
+    "navigationBarTitleText": "汽车配件",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F7FA",
+    "enablePullDownRefresh": false
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "sitemapLocation": "sitemap.json"
+}

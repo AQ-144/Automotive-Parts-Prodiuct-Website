@@ -1,0 +1,29 @@
+<!-- 后台登录页 -->
+<view class="login-page">
+  <!-- 渐变色背景品牌区 -->
+  <view class="hero">
+    <view class="logo">🔧</view>
+    <view class="title">汽配后台管理</view>
+    <view class="subtitle">汽车配件信息平台 · 管理端</view>
+  </view>
+
+  <!-- 登录表单卡片 -->
+  <view class="form-card">
+    <view class="input-group">
+      <text class="label">管理密码</text>
+      <input
+        class="input"
+        password
+        placeholder="请输入后台管理密码"
+        placeholder-class="ph"
+        value="{{password}}"
+        bindinput="onInput"
+      />
+      <view class="tip">提示：默认密码 admin123</view>
+    </view>
+
+    <button class="login-btn" bindtap="onLogin" loading="{{submitting}}" disabled="{{submitting}}">
+      登 录
+    </button>
+  </view>
+</view>

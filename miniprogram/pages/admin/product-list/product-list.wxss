@@ -1,0 +1,217 @@
+/* 配件管理 样式 */
+.list-page {
+  min-height: 100vh;
+  padding: 24rpx;
+}
+
+/* 顶部搜索 + 新增 */
+.top-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.search-box {
+  flex: 1;
+  height: 76rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+}
+.search-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+.ph { color: #bbb; }
+.search-btn {
+  color: #2B99FF;
+  font-size: 28rpx;
+  margin-left: 12rpx;
+}
+.add-btn {
+  margin-left: 16rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  padding: 0 24rpx;
+  background: #2B99FF;
+  color: #fff;
+  font-size: 26rpx;
+  border-radius: 24rpx;
+  white-space: nowrap;
+}
+
+/* 筛选 chips */
+.chips {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 16rpx;
+  white-space: nowrap;
+}
+.chips.boxed {
+  flex-wrap: wrap;
+  white-space: normal;
+}
+.chip {
+  display: inline-block;
+  padding: 10rpx 28rpx;
+  margin-right: 16rpx;
+  margin-bottom: 12rpx;
+  background: #fff;
+  color: #666;
+  font-size: 26rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid transparent;
+}
+.chip.active {
+  color: #fff;
+  background: #2B99FF;
+}
+
+/* 操作条 */
+.op-bar {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 0 20rpx;
+}
+.check-all {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+.checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border: 3rpx solid #c8cdd6;
+  border-radius: 8rpx;
+  margin-right: 8rpx;
+}
+.checkbox.checked {
+  background: #2B99FF;
+  border-color: #2B99FF;
+  position: relative;
+}
+.checkbox.checked::after {
+  content: '';
+  position: absolute;
+  left: 10rpx;
+  top: 4rpx;
+  width: 12rpx;
+  height: 20rpx;
+  border: solid #fff;
+  border-width: 0 4rpx 4rpx 0;
+  transform: rotate(45deg);
+}
+.batch-btn {
+  padding: 12rpx 28rpx;
+  margin-right: 16rpx;
+  font-size: 26rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid #2B99FF;
+  color: #2B99FF;
+}
+.batch-btn.off {
+  border-color: #E53E3E;
+  color: #E53E3E;
+}
+
+/* 卡片列表 */
+.list {
+  padding-bottom: 40rpx;
+}
+.card {
+  display: flex;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+.card .checkbox {
+  margin-top: 44rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.thumb {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 16rpx;
+  background: #F0F2F5;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+}
+.info {
+  flex: 1;
+  min-width: 0;
+}
+.name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row {
+  font-size: 24rpx;
+  margin-top: 8rpx;
+}
+.muted { color: #8a8f9b; }
+.price-row { display: flex; align-items: center; }
+.price-tag {
+  color: #FF7D00;
+  font-weight: 700;
+  font-size: 30rpx;
+}
+.ot {
+  color: #bbb;
+  text-decoration: line-through;
+  font-size: 24rpx;
+  margin-left: 12rpx;
+}
+.status-tag {
+  font-size: 24rpx;
+  font-weight: 600;
+}
+.ops {
+  display: flex;
+  margin-top: 12rpx;
+}
+.op {
+  font-size: 24rpx;
+  color: #2B99FF;
+  padding: 6rpx 20rpx;
+  border: 2rpx solid #2B99FF;
+  border-radius: 32rpx;
+  margin-right: 16rpx;
+}
+.op.danger {
+  color: #E53E3E;
+  border-color: #E53E3E;
+}
+
+/* 尾部/空态 */
+.list-footer {
+  text-align: center;
+  color: #bbb;
+  font-size: 24rpx;
+  padding: 20rpx 0;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 0;
+}
+.empty-icon { font-size: 96rpx; }
+.empty-text {
+  color: #bbb;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}

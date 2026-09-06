@@ -1,0 +1,211 @@
+/* 产品详情样式 */
+.page {
+  padding-bottom: 160rpx;
+}
+
+/* ===== 主图 swiper ===== */
+.gallery {
+  width: 100%;
+  height: 750rpx;
+  background: #f0f2f5;
+}
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ===== 价格区 ===== */
+.price-card {
+  margin: 24rpx;
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.now-price {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #FF7D00;
+}
+.now-price .sign {
+  font-size: 34rpx;
+}
+.status-tag {
+  padding: 8rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+.origin-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+}
+.origin-price {
+  font-size: 26rpx;
+  color: #a0a6b2;
+  text-decoration: line-through;
+}
+.origin-label {
+  margin-left: 12rpx;
+  font-size: 22rpx;
+  color: #c0c6d0;
+}
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #f5f6f8;
+}
+.meta-item {
+  margin-right: 32rpx;
+  font-size: 24rpx;
+  color: #8a8f9b;
+}
+
+/* ===== 名称 + OEM ===== */
+.name-card {
+  margin: 0 24rpx 24rpx;
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+.product-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 44rpx;
+}
+.oem-bubble {
+  display: inline-block;
+  margin-top: 20rpx;
+  padding: 8rpx 24rpx;
+  border-radius: 32rpx;
+  background: #f0f7ff;
+  color: #2B99FF;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+/* ===== 通用块 ===== */
+.block {
+  margin: 0 24rpx 24rpx;
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+.block-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+/* 规格表格 */
+.spec-row {
+  display: flex;
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid #f5f6f8;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-key {
+  width: 200rpx;
+  font-size: 26rpx;
+  color: #8a8f9b;
+}
+.spec-value {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 适配车型胶囊 */
+.fit-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.fit-pill {
+  padding: 12rpx 24rpx;
+  margin: 0 16rpx 16rpx 0;
+  border-radius: 32rpx;
+  background: #eef3f8;
+  color: #333;
+  font-size: 24rpx;
+}
+
+/* 商品描述 */
+.desc {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 44rpx;
+  white-space: pre-wrap;
+}
+
+/* ===== 底部操作栏 ===== */
+.footer-space {
+  height: 160rpx;
+}
+.action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); /* 适配 iPhone 底部安全区 */
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  box-shadow: 0 -4rpx 24rpx rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84rpx;
+  border-radius: 42rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.action-btn.outline {
+  margin-right: 24rpx;
+  border: 2rpx solid #2B99FF;
+  color: #2B99FF;
+  background: #ffffff;
+}
+.action-btn.outline.no-border { border-color: #c6cbd3; }
+.action-btn.solid {
+  background: #2B99FF;
+  color: #ffffff;
+}
+.action-btn.solid.disabled {
+  background: #c6cbd3;
+  color: #ffffff;
+}
+.action-icon {
+  margin-right: 8rpx;
+}
+
+/* ===== 加载/空态 ===== */
+.loading-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+.loading-text {
+  font-size: 28rpx;
+  color: #8a8f9b;
+}

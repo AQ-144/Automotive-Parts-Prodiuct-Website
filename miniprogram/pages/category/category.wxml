@@ -1,0 +1,111 @@
+<view class="page">
+
+  <!-- 顶部一级分类横向 tab -->
+  <scroll-view class="cat-tabs" scroll-x enable-flex>
+    <view class="cat-tab {{activeCat === item.key ? 'active' : ''}}"
+          wx:for="{{cats}}" wx:key="key"
+          data-cat="{{item.key}}" bindtap="switchCat">{{item.name}}</view>
+  </scroll-view>
+
+  <!-- 二级子分类胶囊 -->
+  <view class="sub-wrap" wx:if="{{subs.length > 0}}">
+    <view class="sub-pill" wx:for="{{subs}}" wx:key="*this" bindtap="tapSub">{{item}}</view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-panel">
+    <!-- 排序标签 -->
+    <view class="filter-row sort-row">
+      <view class="sort-pill {{sortKey === item.key ? 'active' : ''}}"
+            wx:for="{{sorts}}" wx:key="key"
+            data-key="{{item.key}}" bindtap="switchSort">{{item.text}}</view>
+    </view>
+
+    <!-- 品牌 / 车型 / 清除 -->
+    <view class="filter-row">
+      <view class="filter-btn {{selectedBrand ? 'on' : ''}}" bindtap="openBrand">
+        <text>{{selectedBrand ? selectedBrand : '品牌'}}</text><text class="filter-arrow">▾</text>
+      </view>
+      <view class="filter-btn {{vehicle ? 'on' : ''}}" bindtap="vehicle ? clearVehicle : openVehicle">
+        <text>{{vehicle ? vehicle.brand + ' ' + vehicle.model : '车型适配'}}</text>
+      </view>
+      <view class="filter-btn" wx:if="{{hasFilter}}" bindtap="resetFilter">清除</view>
+    </view>
+
+    <!-- 价格 Range -->
+    <view class="filter-row price-row">
+      <view class="price-input-wrap">
+        <input class="price-input" type="number" placeholder="最低价" placeholder-class="ph"
+               value="{{minPrice}}" bindinput="onMinInput" />
+      </view>
+      <text class="price-sep">—</text>
+      <view class="price-input-wrap">
+        <input class="price-input" type="number" placeholder="最高价" placeholder-class="ph"
+               value="{{maxPrice}}" bindinput="onMaxInput" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="goods-grid" wx:if="{{filtered.length > 0}}">
+    <view class="goods-card" wx:for="{{filtered}}" wx:key="id"
+          data-id="{{item.id}}" hover-class="card-hover" bindtap="goProduct">
+      <image class="goods-img" src="{{item.main_image}}" mode="aspectFill" lazy-load="true"></image>
+      <view class="goods-name">{{item.name}}</view>
+      <view class="goods-price-row">
+        <view class="goods-price"><text class="sign">¥</text>{{fmtPrice(item.price)}}</view>
+        <text class="goods-sales">已售 {{item.sales}}</text>
+      </view>
+      <view class="goods-oem">OEM {{item.oem_code}}</view>
+    </view>
+  </view>
+
+  <!-- 空态 -->
+  <view class="empty" wx:else>
+    <text class="empty-icon">🔍</text>
+    <text class="empty-text">暂无配件</text>
+    <view class="empty-tip">换个条件试试吧</view>
+  </view>
+
+  <!-- ===== 品牌弹层 ===== -->
+  <view class="mask" wx:if="{{showBrandPicker}}" catchtap="closeBrand"></view>
+  <view class="picker" wx:if="{{showBrandPicker}}">
+    <view class="picker-header">
+      <text class="picker-close" bindtap="closeBrand">✕</text>
+      <text class="picker-title">选择品牌</text>
+      <text class="picker-width"></text>
+    </view>
+    <scroll-view class="picker-body" scroll-y>
+      <view class="pick-item" wx:for="{{brands}}" wx:key="*this"
+            data-index="{{index}}" bindtap="pickBrand">
+        <text>{{item}}</text>
+        <text class="check" wx:if="{{selectedBrand === item}}">✓</text>
+      </view>
+      <view class="pick-empty" wx:if="{{brands.length === 0}}">暂无可选品牌</view>
+    </scroll-view>
+  </view>
+
+  <!-- ===== 车型选择弹层 ===== -->
+  <view class="mask" wx:if="{{showVehiclePicker}}" catchtap="closeVehicle"></view>
+  <view class="picker" wx:if="{{showVehiclePicker}}">
+    <view class="picker-header">
+      <text class="picker-close" bindtap="closeVehicle">✕</text>
+      <text class="picker-title">{{currentBrand ? currentBrand : '选择品牌'}}</text>
+      <text class="picker-back" wx:if="{{currentBrand}}" catchtap="backToBrand">←</text>
+      <text class="picker-width" wx:else></text>
+    </view>
+    <scroll-view class="picker-body" scroll-y>
+      <block wx:if="{{!currentBrand}}">
+        <view class="pick-item" wx:for="{{brandList}}" wx:key="*this"
+              data-index="{{index}}" bindtap="pickBrandForVehicle">{{item}}</view>
+        <view class="pick-empty" wx:if="{{brandList.length === 0}}">暂无可选品牌</view>
+      </block>
+      <block wx:else>
+        <view class="pick-item" wx:for="{{modelList}}" wx:key="id"
+              data-index="{{index}}" bindtap="chooseModel">{{item.brand}} {{item.model}} {{item.year}}</view>
+        <view class="pick-empty" wx:if="{{modelList.length === 0}}">该品牌暂无车型</view>
+      </block>
+    </scroll-view>
+  </view>
+
+</view>

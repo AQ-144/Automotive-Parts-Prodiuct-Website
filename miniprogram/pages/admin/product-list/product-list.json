@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "配件管理",
+  "navigationBarBackgroundColor": "#2B99FF",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F5F7FA"
+}

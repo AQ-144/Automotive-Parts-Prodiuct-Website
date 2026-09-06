@@ -1,0 +1,93 @@
+<view class="page">
+
+  <!-- 顶部胶囊搜索框：点击跳搜索页 -->
+  <view class="search-bar" hover-class="active" bindtap="goSearch">
+    <text class="search-icon">🔍</text>
+    <text class="search-placeholder">搜索配件 / 品牌 / OEM编号</text>
+  </view>
+
+  <!-- 车型选择器 -->
+  <view class="vehicle-bar" hover-class="active" bindtap="openPicker">
+    <text class="vehicle-label">🚗 我的爱车</text>
+    <view class="vehicle-value-wrap">
+      <text class="vehicle-value {{!vehicle ? 'placeholder' : ''}}">{{vehicleText}}</text>
+      <text class="vehicle-arrow">▾</text>
+    </view>
+  </view>
+
+  <!-- 5 个分类入口 -->
+  <view class="cat-grid">
+    <view class="cat-card" wx:for="{{categories}}" wx:key="key"
+          data-cat="{{item.key}}" hover-class="cat-hover" bindtap="goCategory">
+      <view class="cat-emoji" style="background:{{item.color}}1A">{{item.emoji}}</view>
+      <view class="cat-name">{{item.name}}</view>
+      <view class="cat-desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <!-- 热销 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-title-line"><text class="title-bar"></text><text class="section-title">🔥 热销</text></view>
+      <view class="sec-desc">按销量排行</view>
+    </view>
+    <view class="goods-grid">
+      <view class="goods-card" wx:for="{{hotProducts}}" wx:key="id"
+            data-id="{{item.id}}" hover-class="card-hover" bindtap="goProduct">
+        <image class="goods-img" src="{{item.main_image}}" mode="aspectFill" lazy-load="true"></image>
+        <view class="goods-name">{{item.name}}</view>
+        <view class="goods-price-row">
+          <view class="goods-price"><text class="sign">¥</text>{{fmtPrice(item.price)}}</view>
+          <text class="goods-sales">已售 {{item.sales}}</text>
+        </view>
+        <view class="goods-oem">OEM {{item.oem_code}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 为你推荐 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-title-line"><text class="title-bar"></text><text class="section-title">为你推荐</text></view>
+      <view class="sec-desc">为你精选配件</view>
+    </view>
+    <view class="goods-grid">
+      <view class="goods-card" wx:for="{{recommendProducts}}" wx:key="id"
+            data-id="{{item.id}}" hover-class="card-hover" bindtap="goProduct">
+        <image class="goods-img" src="{{item.main_image}}" mode="aspectFill" lazy-load="true"></image>
+        <view class="goods-name">{{item.name}}</view>
+        <view class="goods-price-row">
+          <view class="goods-price"><text class="sign">¥</text>{{fmtPrice(item.price)}}</view>
+          <text class="goods-sales">已售 {{item.sales}}</text>
+        </view>
+        <view class="goods-oem">OEM {{item.oem_code}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部车型选择弹层（半屏） -->
+  <view class="mask" wx:if="{{showPicker}}" catchtap="closePicker"></view>
+  <view class="picker" wx:if="{{showPicker}}">
+    <view class="picker-header">
+      <text class="picker-close" bindtap="closePicker">✕</text>
+      <text class="picker-title">{{currentBrand ? currentBrand : '选择品牌'}}</text>
+      <text class="picker-back" wx:if="{{currentBrand}}" bindtap="backToBrand">← 返回</text>
+      <text class="picker-close" wx:else></text>
+    </view>
+    <scroll-view class="picker-body" scroll-y>
+      <!-- 品牌列表 -->
+      <block wx:if="{{!currentBrand}}">
+        <view class="pick-item pick-brand" wx:for="{{brandList}}" wx:key="*this"
+              data-index="{{index}}" bindtap="pickBrand">{{item}}</view>
+        <view class="pick-empty" wx:if="{{brandList.length === 0}}">暂无可选品牌</view>
+      </block>
+      <!-- 车系列表 -->
+      <block wx:else>
+        <view class="pick-item pick-model" wx:for="{{modelList}}" wx:key="id"
+              data-index="{{index}}" bindtap="pickModel">{{item.brand}} {{item.model}} {{item.year}}</view>
+        <view class="pick-empty" wx:if="{{modelList.length === 0}}">该品牌暂无车型</view>
+      </block>
+    </scroll-view>
+  </view>
+
+</view>

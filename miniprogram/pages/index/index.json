@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "汽车配件",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#2B99FF",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

@@ -1,0 +1,51 @@
+/**
+ * 全局样式
+ * 设计规范：主色 #2B99FF | 辅助 #FF7D00 | 背景 #F5F7FA | 文字 #333333 | 强调 #E53E3E
+ * 圆角 12px | 间距 16px
+ */
+page {
+  background: #F5F7FA;
+  color: #333333;
+  font-size: 28rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+view, text, image, input, button {
+  box-sizing: border-box;
+}
+
+/* 价格强调色 */
+.price {
+  color: #FF7D00;
+}
+.price-tag {
+  color: #E53E3E;
+}
+
+/* 按钮重置 */
+button {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  line-height: initial;
+}
+button::after {
+  border: none;
+}
+
+/* 通用容器 */
+.container {
+  padding: 24rpx;
+}
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+  margin: 24rpx 0 16rpx;
+}
+.muted {
+  color: #8a8f9b;
+  font-size: 24rpx;
+}

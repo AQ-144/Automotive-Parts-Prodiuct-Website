@@ -1,0 +1,49 @@
+<view class="page">
+
+  <!-- 有商品 -->
+  <block wx:if="{{cart.length > 0}}">
+    <!-- 单列列表卡片 -->
+    <view class="cart-list">
+      <view class="cart-card" wx:for="{{cart}}" wx:key="id">
+        <!-- 左：小图 -->
+        <image class="cart-img" src="{{item.main_image}}" mode="aspectFill" lazy-load="true"></image>
+        <!-- 中：名称 + 价格 -->
+        <view class="cart-info">
+          <view class="cart-name">{{item.name}}</view>
+          <view class="cart-price"><text class="sign">¥</text>{{fmtPrice(item.price)}}</view>
+        </view>
+        <!-- 右：数量加减 + 删除 -->
+        <view class="cart-right">
+          <view class="stepper">
+            <view class="step-btn {{item.count <= 1 ? 'step-disabled' : ''}}" hover-class="btn-hover"
+                  data-index="{{index}}" bindtap="decrease">-</view>
+            <text class="step-num">{{item.count}}</text>
+            <view class="step-btn" hover-class="btn-hover" data-index="{{index}}" bindtap="increase">+</view>
+          </view>
+          <view class="del-btn" hover-class="btn-hover" data-index="{{index}}" bindtap="removeItem">删除</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部操作栏 -->
+    <view class="footer">
+      <view class="footer-row">
+        <text class="clear-all" hover-class="btn-hover" bindtap="clearAll">清除全部</text>
+        <view class="total-wrap">
+          <text class="total-label">合计：</text>
+          <text class="total-num"><text class="sign">¥</text>{{totalStr}}</text>
+        </view>
+      </view>
+      <button class="submit-btn" hover-class="submit-hover" bindtap="submit">提交询价</button>
+    </view>
+  </block>
+
+  <!-- 空态 -->
+  <view class="empty" wx:else>
+    <text class="empty-icon">🛒</text>
+    <text class="empty-text">询价单为空</text>
+    <text class="empty-sub">快去挑选需要的配件吧</text>
+    <view class="go-buy" hover-class="btn-hover" bindtap="goHome">去逛逛</view>
+  </view>
+
+</view>

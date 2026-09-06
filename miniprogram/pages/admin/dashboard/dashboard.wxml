@@ -1,0 +1,49 @@
+<!-- 后台首页 (仪表盘) -->
+<view class="dash-page">
+  <!-- 顶部欢迎横幅 -->
+  <view class="banner">
+    <view class="welcome">
+      <view class="hi">你好，{{username || '管理员'}} 👋</view>
+      <view class="sub">欢迎回来，这里是汽车配件后台管理中心</view>
+    </view>
+  </view>
+
+  <!-- 统计卡片 (两列 Grid) -->
+  <view class="stats">
+    <view class="stat-card">
+      <view class="stat-val">{{stats.total}}</view>
+      <view class="stat-label">总配件数</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-val on-sale">{{stats.onSale}}</view>
+      <view class="stat-label">在售</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-val off-shelf">{{stats.offShelf}}</view>
+      <view class="stat-label">停售</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-val sales">{{stats.totalSales}}</view>
+      <view class="stat-label">总销量</view>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="quick">
+    <view class="section-title">快捷操作</view>
+    <view class="entry-grid">
+      <view class="entry" bindtap="goAdd">
+        <view class="entry-icon add">＋</view>
+        <view class="entry-text">新增配件</view>
+      </view>
+      <view class="entry" bindtap="goList">
+        <view class="entry-icon list">☰</view>
+        <view class="entry-text">配件管理</view>
+      </view>
+      <view class="entry" bindtap="logout">
+        <view class="entry-icon out">↪</view>
+        <view class="entry-text">退出登录</view>
+      </view>
+    </view>
+  </view>
+</view>
