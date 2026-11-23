@@ -23,17 +23,6 @@ out/
 .secrets
 *.pem
 
-# 业务数据库与运行时产物（含真实数据，禁止提交）
-*.db
-*.db-wal
-*.db-shm
-*.sqlite
-*.sqlite3
-parts.db
-products.db
-uploads/
-server.log
-
 # IDE 和操作系统配置（因人而异，无需同步）
 .vscode/
 .idea/
@@ -44,3 +33,14 @@ Thumbs.db
 # 缓存文件
 .cache/
 *.tsbuildinfo
+
+# 本地数据库与业务数据（禁止入库）
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+parts.db
+products.db
+uploads/
+server.log
