@@ -18,8 +18,21 @@ out/
 # 环境变量与密钥（安全红线，绝对不能提交）
 .env
 .env.local
+.env.*
+!.env.example
 .secrets
 *.pem
+
+# 业务数据库与运行时产物（含真实数据，禁止提交）
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+parts.db
+products.db
+uploads/
+server.log
 
 # IDE 和操作系统配置（因人而异，无需同步）
 .vscode/
